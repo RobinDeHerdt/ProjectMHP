@@ -6,20 +6,19 @@
 package hellotvxlet;
 
 import java.awt.Color;
+import org.havi.ui.HState;
 import org.havi.ui.HTextButton;
 
 /**
  *
  * @author student
  */
-public class MijnKnop extends HTextButton implements ObserverInterface {
-    Color kleur = Color.RED;
-    public void update(int tijd) {
-        if (kleur==Color.RED) kleur=Color.GREEN; 
-        else if (kleur==Color.GREEN) kleur=Color.BLUE;
-        else kleur=Color.RED;
+public class MijnKnop extends HTextButton 
+{
+    public MijnKnop(String text, Color kleur)
+    {
+        this.setTextContent(text, HState.NORMAL_STATE);
         this.setBackground(kleur);
         this.repaint();
     }
-
 }
