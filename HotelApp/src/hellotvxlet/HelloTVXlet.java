@@ -51,6 +51,7 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             ex.printStackTrace();
         }
              
+        // NavBar
         MijnKnop btn1 = new MijnKnop("RoomService", new Color(200, 200, 200, 200));
         btn1.setBounds(180, 0, 135, 75);
         btn1.setBackgroundMode(HVisible.BACKGROUND_FILL);
@@ -67,11 +68,38 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         btn4.setBounds(585, 0, 135, 75);
         btn4.setBackgroundMode(HVisible.BACKGROUND_FILL);
         
+        // SubMenu
+        MijnKnop btn5 = new MijnKnop("SubItem1", new Color(200, 200, 200, 200));
+        btn5.setBounds(0, 125, 135, 75);
+        btn5.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        
+        MijnKnop btn6 = new MijnKnop("SubItem2", new Color(200, 200, 200, 200));
+        btn6.setBounds(0, 200, 135, 75);
+        btn6.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        
+        MijnKnop btn7 = new MijnKnop("SubItem3", new Color(200, 200, 200, 200));
+        btn7.setBounds(0, 275, 135, 75);
+        btn7.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        
+        MijnKnop btn8 = new MijnKnop("SubItem4", new Color(200, 200, 200, 200));
+        btn8.setBounds(0, 350, 135, 75);
+        btn8.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        
+        // Content
+        MijnKnop btn9 = new MijnKnop("Content", new Color(200, 200, 200, 200));
+        btn9.setBounds(180, 125, 540, 300);
+        btn9.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        
         HScene scene = HSceneFactory.getInstance().getDefaultHScene();
         scene.add(btn1);
         scene.add(btn2);
         scene.add(btn3);
         scene.add(btn4);
+        scene.add(btn5);
+        scene.add(btn6);
+        scene.add(btn7);
+        scene.add(btn8);
+        scene.add(btn9);
         
         scene.validate();
         scene.setVisible(true);
