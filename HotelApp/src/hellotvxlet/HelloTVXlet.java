@@ -5,6 +5,9 @@ package hellotvxlet;
  * @author YannisT
  */
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.tv.xlet.*;
 import java.awt.event.*;
 import org.davic.resources.ResourceClient;
@@ -43,8 +46,8 @@ public class HelloTVXlet implements Xlet, HActionListener {
         bgDev=screen.getDefaultHBackgroundDevice();
         bgDev.reserveDevice((ResourceClient) this);
         HBackgroundConfigTemplate bgConfigTemplate =new HBackgroundConfigTemplate();
-        bgConfigTemplate.setPreference(HBackgroundConfigTemplate.STILL_IMAGE,
-                HBackgroundConfigTemplate.REQUIRED);
+        //bgConfigTemplate.setPreference(HBackgroundConfigTemplate.STILL_IMAGE,
+                //HBackgroundConfigTemplate.REQUIRED);
         try
         {
             bgConfig=(HStillImageBackgroundConfiguration)bgDev.getBestConfiguration(bgConfigTemplate);
@@ -64,8 +67,14 @@ public class HelloTVXlet implements Xlet, HActionListener {
     public void startXlet() throws XletStateChangeException 
     {
         System.out.println("Start");
-        bgImg=new HBackgroundImage("background.jpg");
-        bgImg.load((HBackgroundImageListener) this);
+        
+        //bgImg=new HBackgroundImage("background.jpg");
+        //bgImg.load((HBackgroundImageListener) this);
+    }
+    
+    public void paint(Graphics g)
+    {
+        //g.drawImage(img, 0, 0, null);
     }
     
     public void imageLoaded(HBackgroundImageEvent e)
