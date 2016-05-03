@@ -5,104 +5,84 @@ package hellotvxlet;
  * @author YannisT
  */
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import javax.tv.xlet.*;
-import java.awt.event.*;
+import java.io.IOException;
+import javax.tv.xlet.Xlet;
+import javax.tv.xlet.XletContext;
+import javax.tv.xlet.XletStateChangeException;
 import org.davic.resources.ResourceClient;
+import org.davic.resources.ResourceProxy;
 import org.havi.ui.HBackgroundConfigTemplate;
+import org.havi.ui.HBackgroundConfiguration;
 import org.havi.ui.HBackgroundDevice;
 import org.havi.ui.HBackgroundImage;
-import org.havi.ui.HScene;
-import org.havi.ui.HSceneFactory;
+import org.havi.ui.HConfigurationException;
+import org.havi.ui.HPermissionDeniedException;
 import org.havi.ui.HScreen;
 import org.havi.ui.HStillImageBackgroundConfiguration;
-import org.havi.ui.HVisible;
-import org.havi.ui.event.HActionListener;
 import org.havi.ui.event.HBackgroundImageEvent;
 import org.havi.ui.event.HBackgroundImageListener;
 
 
-public class HelloTVXlet implements Xlet, HActionListener {
- 
+public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListener
+{
     private HScreen screen;
     private HBackgroundDevice bgDev;
     private HStillImageBackgroundConfiguration bgConfig;
-    private HBackgroundImage bgImg;
-  
-    public HelloTVXlet() {
-        
+    private HBackgroundImage bgImg1;
+    
+    public void destroyXlet(boolean unconditional) throws XletStateChangeException {
     }
 
-    public void initXlet(XletContext context) throws XletStateChangeException {
-//      Observer ob1 = new Observer();
-//      Observer ob2 = new Observer();
-//      Observer ob3 = new Observer();
-//      Subject sub = new Subject();
-//      sub.register(ob1); sub.register(ob2); sub.register(ob3);
-        
+    public void initXlet(XletContext ctx) throws XletStateChangeException {
         screen=HScreen.getDefaultHScreen();
         bgDev=screen.getDefaultHBackgroundDevice();
-        bgDev.reserveDevice((ResourceClient) this);
+        bgDev.reserveDevice(this);
         HBackgroundConfigTemplate bgConfigTemplate =new HBackgroundConfigTemplate();
-        //bgConfigTemplate.setPreference(HBackgroundConfigTemplate.STILL_IMAGE,
-                //HBackgroundConfigTemplate.REQUIRED);
-        try
-        {
+        bgConfigTemplate.setPreference(HBackgroundConfigTemplate.STILL_IMAGE, 
+                HBackgroundConfigTemplate.REQUIRED);
+        try {
             bgConfig=(HStillImageBackgroundConfiguration)bgDev.getBestConfiguration(bgConfigTemplate);
             bgDev.setBackgroundConfiguration(bgConfig);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
-        
-      HScene scene=HSceneFactory.getInstance().getDefaultHScene();
-      
-      scene.validate(); scene.setVisible(true);
+             
     }
 
-    public void startXlet() throws XletStateChangeException 
-    {
-        System.out.println("Start");
-        
-        //bgImg=new HBackgroundImage("background.jpg");
-        //bgImg.load((HBackgroundImageListener) this);
+    public void startXlet() throws XletStateChangeException {
+        bgImg1=new HBackgroundImage("background.jpg");
+        bgImg1.load(this);
+
     }
-    
-    public void paint(Graphics g)
-    {
-        //g.drawImage(img, 0, 0, null);
-    }
-    
-    public void imageLoaded(HBackgroundImageEvent e)
-    {
+    public void imageLoaded(HBackgroundImageEvent e) {
         System.out.println("Image geladen");
-        try
-        {
-            bgConfig.displayImage(bgImg);
-        }
-        catch (Exception ex)
-        {
+       try {
+            bgConfig.displayImage(bgImg1);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    public void imageLoadFailed(HBackgroundImageEvent e)
-    {
-        System.out.println("Image failed");
-    }
 
+    public void imageLoadFailed(HBackgroundImageEvent e) {
+        System.out.println("Image mislukt");
+    }
+    
     public void pauseXlet() {
-     
+    }
+    
+    public boolean requestRelease(ResourceProxy proxy, Object requestData) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void destroyXlet(boolean unconditional) {
-     
+    public void release(ResourceProxy proxy) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void actionPerformed(ActionEvent e) {
-        
+    public void notifyRelease(ResourceProxy proxy) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
+
+
+    
 }
