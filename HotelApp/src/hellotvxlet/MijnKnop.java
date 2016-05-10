@@ -21,4 +21,15 @@ public class MijnKnop extends HTextButton
         this.setBackground(kleur);
         this.repaint();
     }
+    
+    public void Select()
+    {
+        this.setBackground(Color.RED);
+        this.repaint();
+    }
+    public void DeSelect()
+    {
+        this.setBackground(Color.GRAY);
+        this.repaint();
+    }
 }
