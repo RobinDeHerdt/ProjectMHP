@@ -31,8 +31,19 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
     private HBackgroundDevice bgDev;
     private HStillImageBackgroundConfiguration bgConfig;
     private HBackgroundImage bgImg1;
-    public MijnKnop btn1, btn2, btn3, btn4, btn11, btn12, btn13, btn14;
-    public MijnKnop[] btn1subs = new MijnKnop[4];
+    private MijnKnop btn1, btn2, btn3, btn4;
+    
+    private String[] btn1subsNames = {"Dagmenu", "Eten", "Drinken", "Bestellingen"}; 
+    private MijnKnop[] btn1subs = new MijnKnop[btn1subsNames.length];
+    
+    private String[] btn2subsNames = {"Zwembad", "Tennis", "Welness"}; 
+    private MijnKnop[] btn2subs = new MijnKnop[btn2subsNames.length];
+    
+    private String[] btn3subsNames = {"EiffelToren", "Colloseum", "PisaToren"}; 
+    private MijnKnop[] btn3subs = new MijnKnop[btn3subsNames.length];
+    
+    private String[] btn4subsNames = {"Animatie", "Zumba", "Aquagym"}; 
+    private MijnKnop[] btn4subs = new MijnKnop[btn4subsNames.length];
     
     public void destroyXlet(boolean unconditional) throws XletStateChangeException {
     }
@@ -77,30 +88,54 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         btn4.addHActionListener(this);
         
         // SubMenu
-        btn11 = new MijnKnop("SubItem1", new Color(200, 200, 200, 200));
-        btn11.setBounds(0, 125, 135, 75);
-        btn11.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        btn11.setVisible(false);
+        for (int i = 0; i < btn1subs.length; i++)
+        {
+            btn1subs[i] = new MijnKnop(btn1subsNames[i], new Color(200, 200, 200, 200));
+            btn1subs[i].setBounds(0, 125 + (i*75), 135, 75);
+            btn1subs[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
+            btn1subs[i].setVisible(false);
+        }
+        for (int i = 0; i < btn2subs.length; i++)
+        {
+            btn2subs[i] = new MijnKnop(btn2subsNames[i], new Color(200, 200, 200, 200));
+            btn2subs[i].setBounds(0, 125 + (i*75), 135, 75);
+            btn2subs[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
+            btn2subs[i].setVisible(false);
+        }
+        for (int i = 0; i < btn3subs.length; i++)
+        {
+            btn3subs[i] = new MijnKnop(btn3subsNames[i], new Color(200, 200, 200, 200));
+            btn3subs[i].setBounds(0, 125 + (i*75), 135, 75);
+            btn3subs[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
+            btn3subs[i].setVisible(false);
+        }
+        for (int i = 0; i < btn4subs.length; i++)
+        {
+            btn4subs[i] = new MijnKnop(btn4subsNames[i], new Color(200, 200, 200, 200));
+            btn4subs[i].setBounds(0, 125 + (i*75), 135, 75);
+            btn4subs[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
+            btn4subs[i].setVisible(false);
+        }
+//        btn11 = new MijnKnop("SubItem1", new Color(200, 200, 200, 200));
+//        btn11.setBounds(0, 125, 135, 75);
+//        btn11.setBackgroundMode(HVisible.BACKGROUND_FILL);
+//        btn11.setVisible(false);
+//        
+//        btn12 = new MijnKnop("SubItem2", new Color(200, 200, 200, 200));
+//        btn12.setBounds(0, 200, 135, 75);
+//        btn12.setBackgroundMode(HVisible.BACKGROUND_FILL);
+//        btn12.setVisible(false);
+//        
+//        btn13 = new MijnKnop("SubItem3", new Color(200, 200, 200, 200));
+//        btn13.setBounds(0, 275, 135, 75);
+//        btn13.setBackgroundMode(HVisible.BACKGROUND_FILL);
+//        btn13.setVisible(false);
+//        
+//        btn14 = new MijnKnop("SubItem4", new Color(200, 200, 200, 200));
+//        btn14.setBounds(0, 350, 135, 75);
+//        btn14.setBackgroundMode(HVisible.BACKGROUND_FILL);
+//        btn14.setVisible(false);
         
-        btn12 = new MijnKnop("SubItem2", new Color(200, 200, 200, 200));
-        btn12.setBounds(0, 200, 135, 75);
-        btn12.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        btn12.setVisible(false);
-        
-        btn13 = new MijnKnop("SubItem3", new Color(200, 200, 200, 200));
-        btn13.setBounds(0, 275, 135, 75);
-        btn13.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        btn13.setVisible(false);
-        
-        btn14 = new MijnKnop("SubItem4", new Color(200, 200, 200, 200));
-        btn14.setBounds(0, 350, 135, 75);
-        btn14.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        btn14.setVisible(false);
-        
-        btn1subs[0] = btn11;
-        btn1subs[1] = btn12;
-        btn1subs[2] = btn13;
-        btn1subs[3] = btn14;
         
         // Content
         MijnKnop btn9 = new MijnKnop("Content", new Color(200, 200, 200, 200));
@@ -108,24 +143,49 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         btn9.setBackgroundMode(HVisible.BACKGROUND_FILL);
         
         // Button Traversals
-        btn1.setFocusTraversal(null, btn11, null, btn2);
-        btn2.setFocusTraversal(null, btn11, btn1, btn3);
-        btn3.setFocusTraversal(null, btn11, btn2, btn4);
-        btn4.setFocusTraversal(null, btn11, btn3, null);
-        btn11.setFocusTraversal(btn1, btn12, null, null);
-        btn12.setFocusTraversal(btn11, btn13, null, null);
-        btn13.setFocusTraversal(btn12, btn14, null, null);
-        btn14.setFocusTraversal(btn13, null, null, null);
+        btn1.setFocusTraversal(null, btn1subs[0], null, btn2);
+        btn2.setFocusTraversal(null, btn1subs[0], btn1, btn3);
+        btn3.setFocusTraversal(null, btn1subs[0], btn2, btn4);
+        btn4.setFocusTraversal(null, btn1subs[0], btn3, null);
+        
+        btn1subs[0].setFocusTraversal(btn1, btn1subs[1], null, null);
+        btn1subs[1].setFocusTraversal(btn1subs[0], btn1subs[2], null, null);
+        btn1subs[2].setFocusTraversal(btn1subs[1], btn1subs[3], null, null);
+        btn1subs[3].setFocusTraversal(btn1subs[2], null, null, null);
+        
+        btn2subs[0].setFocusTraversal(btn2, btn2subs[1], null, null);
+        btn2subs[1].setFocusTraversal(btn2subs[0], btn2subs[2], null, null);
+        btn2subs[2].setFocusTraversal(btn2subs[1], null, null, null);
+        
+        btn3subs[0].setFocusTraversal(btn3, btn3subs[1], null, null);
+        btn3subs[1].setFocusTraversal(btn3subs[0], btn3subs[2], null, null);
+        btn3subs[2].setFocusTraversal(btn3subs[1], null, null, null);
+        
+        btn4subs[0].setFocusTraversal(btn4, btn4subs[1], null, null);
+        btn4subs[1].setFocusTraversal(btn4subs[0], btn4subs[2], null, null);
+        btn4subs[2].setFocusTraversal(btn4subs[1], null, null, null);
         
         HScene scene = HSceneFactory.getInstance().getDefaultHScene();
         scene.add(btn1);
         scene.add(btn2);
         scene.add(btn3);
         scene.add(btn4);
-        scene.add(btn11);
-        scene.add(btn12);
-        scene.add(btn13);
-        scene.add(btn14);
+        for (int i = 0; i < btn1subs.length; i++)
+        {
+            scene.add(btn1subs[i]);
+        }
+        for (int i = 0; i < btn2subs.length; i++)
+        {
+            scene.add(btn2subs[i]);
+        }
+        for (int i = 0; i < btn3subs.length; i++)
+        {
+            scene.add(btn3subs[i]);
+        }
+        for (int i = 0; i < btn4subs.length; i++)
+        {
+            scene.add(btn4subs[i]);
+        }
         scene.add(btn9);
         
         scene.validate();
@@ -180,8 +240,20 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             {
                 btn1subs[i].setVisible(true);
             }
+            for (int i = 0; i < btn2subs.length; i++)
+            {
+                btn2subs[i].setVisible(false);
+            }
+            for (int i = 0; i < btn3subs.length; i++)
+            {
+                btn3subs[i].setVisible(false);
+            }
+            for (int i = 0; i < btn4subs.length; i++)
+            {
+                btn4subs[i].setVisible(false);
+            }
             
-            btn11.requestFocus();
+            btn1subs[0].requestFocus();
         }
         else if (event.getActionCommand().equals("btn2click"))
         {
@@ -194,6 +266,20 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             {
                 btn1subs[i].setVisible(false);
             }
+            for (int i = 0; i < btn2subs.length; i++)
+            {
+                btn2subs[i].setVisible(true);
+            }
+            for (int i = 0; i < btn3subs.length; i++)
+            {
+                btn3subs[i].setVisible(false);
+            }
+            for (int i = 0; i < btn4subs.length; i++)
+            {
+                btn4subs[i].setVisible(false);
+            }
+            
+            btn2subs[0].requestFocus();
         }
         else if (event.getActionCommand().equals("btn3click"))
         {
@@ -201,6 +287,25 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             btn2.DeSelect();
             btn3.Select();
             btn4.DeSelect();
+            
+            for (int i = 0; i < btn1subs.length; i++)
+            {
+                btn1subs[i].setVisible(false);
+            }
+            for (int i = 0; i < btn2subs.length; i++)
+            {
+                btn2subs[i].setVisible(false);
+            }
+            for (int i = 0; i < btn3subs.length; i++)
+            {
+                btn3subs[i].setVisible(true);
+            }
+            for (int i = 0; i < btn4subs.length; i++)
+            {
+                btn4subs[i].setVisible(false);
+            }
+            
+            btn3subs[0].requestFocus();
         }
         else if (event.getActionCommand().equals("btn4click"))
         {
@@ -208,6 +313,25 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             btn2.DeSelect();
             btn3.DeSelect();
             btn4.Select();
+            
+            for (int i = 0; i < btn1subs.length; i++)
+            {
+                btn1subs[i].setVisible(false);
+            }
+            for (int i = 0; i < btn2subs.length; i++)
+            {
+                btn2subs[i].setVisible(false);
+            }
+            for (int i = 0; i < btn3subs.length; i++)
+            {
+                btn3subs[i].setVisible(false);
+            }
+            for (int i = 0; i < btn4subs.length; i++)
+            {
+                btn4subs[i].setVisible(true);
+            }
+            
+            btn4subs[0].requestFocus();
         }
     }
 
