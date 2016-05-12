@@ -19,6 +19,7 @@ import org.havi.ui.HScene;
 import org.havi.ui.HSceneFactory;
 import org.havi.ui.HScreen;
 import org.havi.ui.HStillImageBackgroundConfiguration;
+import org.havi.ui.HTextButton;
 import org.havi.ui.HVisible;
 import org.havi.ui.event.HActionListener;
 import org.havi.ui.event.HBackgroundImageEvent;
@@ -45,6 +46,9 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
     private String[] btn4subsNames = {"Animatie", "Zumba", "Aquagym"}; 
     private MijnKnop[] btn4subs = new MijnKnop[btn4subsNames.length];
     
+    private MijnKnop[] navBar;
+    private MijnKnop[][] allSubs;
+    
     public void destroyXlet(boolean unconditional) throws XletStateChangeException {
     }
 
@@ -66,26 +70,24 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         btn1 = new MijnKnop("RoomService", Color.GRAY);
         btn1.setBounds(180, 0, 135, 75);
         btn1.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        btn1.setActionCommand("btn1click");
         btn1.addHActionListener(this);
         
         btn2 = new MijnKnop("Faciliteiten", Color.GRAY);
         btn2.setBounds(315, 0, 135, 75);
         btn2.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        btn2.setActionCommand("btn2click");
         btn2.addHActionListener(this);
         
         btn3 = new MijnKnop("Omgeving", Color.GRAY);
         btn3.setBounds(450, 0, 135, 75);
         btn3.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        btn3.setActionCommand("btn3click");
         btn3.addHActionListener(this);
         
         btn4 = new MijnKnop("Events", Color.GRAY);
         btn4.setBounds(585, 0, 135, 75);
         btn4.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        btn4.setActionCommand("btn4click");
         btn4.addHActionListener(this);
+        
+        navBar = new MijnKnop[]{btn1, btn2, btn3, btn4};
         
         // SubMenu
         for (int i = 0; i < btn1subs.length; i++)
@@ -94,6 +96,7 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             btn1subs[i].setBounds(0, 125 + (i*75), 135, 75);
             btn1subs[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
             btn1subs[i].setVisible(false);
+            btn1subs[i].addHActionListener(this);
         }
         for (int i = 0; i < btn2subs.length; i++)
         {
@@ -116,31 +119,14 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             btn4subs[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
             btn4subs[i].setVisible(false);
         }
-//        btn11 = new MijnKnop("SubItem1", new Color(200, 200, 200, 200));
-//        btn11.setBounds(0, 125, 135, 75);
-//        btn11.setBackgroundMode(HVisible.BACKGROUND_FILL);
-//        btn11.setVisible(false);
-//        
-//        btn12 = new MijnKnop("SubItem2", new Color(200, 200, 200, 200));
-//        btn12.setBounds(0, 200, 135, 75);
-//        btn12.setBackgroundMode(HVisible.BACKGROUND_FILL);
-//        btn12.setVisible(false);
-//        
-//        btn13 = new MijnKnop("SubItem3", new Color(200, 200, 200, 200));
-//        btn13.setBounds(0, 275, 135, 75);
-//        btn13.setBackgroundMode(HVisible.BACKGROUND_FILL);
-//        btn13.setVisible(false);
-//        
-//        btn14 = new MijnKnop("SubItem4", new Color(200, 200, 200, 200));
-//        btn14.setBounds(0, 350, 135, 75);
-//        btn14.setBackgroundMode(HVisible.BACKGROUND_FILL);
-//        btn14.setVisible(false);
+        
+        allSubs = new MijnKnop[][]{btn1subs, btn2subs, btn3subs, btn4subs};
         
         
         // Content
-        MijnKnop btn9 = new MijnKnop("Content", new Color(200, 200, 200, 200));
-        btn9.setBounds(180, 125, 540, 300);
-        btn9.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        MijnKnop panelContent = new MijnKnop("Content", new Color(200, 200, 200, 200));
+        panelContent.setBounds(180, 125, 540, 300);
+        panelContent.setBackgroundMode(HVisible.BACKGROUND_FILL);
         
         // Button Traversals
         btn1.setFocusTraversal(null, btn1subs[0], null, btn2);
@@ -186,7 +172,7 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         {
             scene.add(btn4subs[i]);
         }
-        scene.add(btn9);
+        scene.add(panelContent);
         
         scene.validate();
         scene.setVisible(true);
@@ -229,109 +215,78 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
 
     public void actionPerformed(ActionEvent event) 
     {
-        if (event.getActionCommand().equals("btn1click"))
+        String btnType = "sub";
+        System.out.println(event.getSource());
+        MijnKnop pressedBtn = (MijnKnop)event.getSource();
+        
+        // Is pressedBtn from navbar?
+        for (int i = 0; i < navBar.length; i++)
         {
-            btn1.Select();
-            btn2.DeSelect();
-            btn3.DeSelect();
-            btn4.DeSelect();
-            
-            for (int i = 0; i < btn1subs.length; i++)
+            if (pressedBtn.equals(navBar[i]))
             {
-                btn1subs[i].setVisible(true);
+                btnType = "nav";
+                hideButtons();
             }
-            for (int i = 0; i < btn2subs.length; i++)
-            {
-                btn2subs[i].setVisible(false);
-            }
-            for (int i = 0; i < btn3subs.length; i++)
-            {
-                btn3subs[i].setVisible(false);
-            }
-            for (int i = 0; i < btn4subs.length; i++)
-            {
-                btn4subs[i].setVisible(false);
-            }
-            
-            btn1subs[0].requestFocus();
         }
-        else if (event.getActionCommand().equals("btn2click"))
+        deselectButtons(btnType);
+        pressedBtn.Select();
+        System.out.println(pressedBtn.getTextContent(MijnKnop.NORMAL_STATE));
+        
+        
+        if (pressedBtn.equals(btn1))
         {
-            btn1.DeSelect();
-            btn2.Select();
-            btn3.DeSelect();
-            btn4.DeSelect();
-            
-            for (int i = 0; i < btn1subs.length; i++)
-            {
-                btn1subs[i].setVisible(false);
-            }
-            for (int i = 0; i < btn2subs.length; i++)
-            {
-                btn2subs[i].setVisible(true);
-            }
-            for (int i = 0; i < btn3subs.length; i++)
-            {
-                btn3subs[i].setVisible(false);
-            }
-            for (int i = 0; i < btn4subs.length; i++)
-            {
-                btn4subs[i].setVisible(false);
-            }
-            
-            btn2subs[0].requestFocus();
+            showButtons(btn1subs);
         }
-        else if (event.getActionCommand().equals("btn3click"))
+        else if (pressedBtn.equals(btn2))
         {
-            btn1.DeSelect();
-            btn2.DeSelect();
-            btn3.Select();
-            btn4.DeSelect();
-            
-            for (int i = 0; i < btn1subs.length; i++)
-            {
-                btn1subs[i].setVisible(false);
-            }
-            for (int i = 0; i < btn2subs.length; i++)
-            {
-                btn2subs[i].setVisible(false);
-            }
-            for (int i = 0; i < btn3subs.length; i++)
-            {
-                btn3subs[i].setVisible(true);
-            }
-            for (int i = 0; i < btn4subs.length; i++)
-            {
-                btn4subs[i].setVisible(false);
-            }
-            
-            btn3subs[0].requestFocus();
+            showButtons(btn2subs);
         }
-        else if (event.getActionCommand().equals("btn4click"))
+        else if (pressedBtn.equals(btn3))
         {
-            btn1.DeSelect();
-            btn2.DeSelect();
-            btn3.DeSelect();
-            btn4.Select();
-            
-            for (int i = 0; i < btn1subs.length; i++)
+            showButtons(btn3subs);
+        }
+        else if (pressedBtn.equals(btn4))
+        {
+            showButtons(btn4subs);
+        }
+        
+    }
+    
+    public void hideButtons()
+    {
+        for (int i = 0; i < allSubs.length; i++)
+        {
+            for (int j = 0; j < allSubs[i].length; j++)
             {
-                btn1subs[i].setVisible(false);
+                allSubs[i][j].setVisible(false);
             }
-            for (int i = 0; i < btn2subs.length; i++)
+        }
+    }
+    
+    public void showButtons(MijnKnop[] subs)
+    {
+        for (int i = 0; i < subs.length; i++)
+        {
+            subs[i].setVisible(true);
+        }
+    }
+    
+    public void deselectButtons(String type)
+    {
+        if (type.equals("nav"))
+        {
+            for (int i = 0; i < navBar.length; i++)
             {
-                btn2subs[i].setVisible(false);
+                navBar[i].DeSelect();
             }
-            for (int i = 0; i < btn3subs.length; i++)
+        }
+        
+        for (int i = 0; i < allSubs.length; i++)
+        {
+            for (int j = 0; j < allSubs[i].length; j++)
             {
-                btn3subs[i].setVisible(false);
+                allSubs[i][j].DeSelect();
             }
-            for (int i = 0; i < btn4subs.length; i++)
-            {
-                btn4subs[i].setVisible(true);
-            }
-            
-            btn4subs[0].requestFocus();
         }
     }
 
