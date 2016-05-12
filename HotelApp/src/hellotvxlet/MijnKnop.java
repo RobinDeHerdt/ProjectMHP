@@ -15,10 +15,14 @@ import org.havi.ui.HTextButton;
  */
 public class MijnKnop extends HTextButton 
 {
+    private Color initColor;
+    
     public MijnKnop(String text, Color kleur)
     {
+        initColor = kleur;
+        
         this.setTextContent(text, HState.NORMAL_STATE);
-        this.setBackground(kleur);
+        this.setBackground(initColor);
         this.repaint();
     }
     
@@ -29,7 +33,7 @@ public class MijnKnop extends HTextButton
     }
     public void DeSelect()
     {
-        this.setBackground(Color.GRAY);
+        this.setBackground(initColor);
         this.repaint();
     }
 }
