@@ -6,6 +6,7 @@ package hellotvxlet;
  */
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.tv.xlet.Xlet;
 import javax.tv.xlet.XletContext;
@@ -34,7 +35,7 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
     private HBackgroundImage bgImg1;
     private MijnKnop btn1, btn2, btn3, btn4;
     
-    private String[] btn1subsNames = {"Dagmenu", "Eten", "Drinken", "Bestellingen"}; 
+    private String[] btn1subsNames = {"Algemeen", "Dagmenu", "Bestellingen"}; 
     private MijnKnop[] btn1subs = new MijnKnop[btn1subsNames.length];
     
     private String[] btn2subsNames = {"Zwembad", "Tennis", "Welness"}; 
@@ -48,6 +49,22 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
     
     private MijnKnop[] navBar;
     private MijnKnop[][] allSubs;
+    
+    private String[] txtContent12 = {"Kreeftensoep met balletjes", 
+                                     "Foie gras op een bedje van zeewier", 
+                                     "Escalope a la primavera",
+                                     "Creme brulee"};
+    private MijnKnop[] lblContent12 = new MijnKnop[txtContent12.length];
+    
+    private String[] txtContent13 = {"1 x Fles Martini Royal",
+                                     "5 x Portie Kaviaar"};
+    private MijnKnop[] lblContent13 = new MijnKnop[txtContent13.length];
+    
+    private String[] txtContent21 = {"OpeningsUren: 9u - 19u",
+                                     "5 x Portie Kaviaar"};
+    private MijnKnop[] lblContent21 = new MijnKnop[txtContent21.length];
+    
+    
     
     public void destroyXlet(boolean unconditional) throws XletStateChangeException {
     }
@@ -104,6 +121,7 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             btn2subs[i].setBounds(0, 125 + (i*75), 135, 75);
             btn2subs[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
             btn2subs[i].setVisible(false);
+            btn2subs[i].addHActionListener(this);
         }
         for (int i = 0; i < btn3subs.length; i++)
         {
@@ -111,6 +129,7 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             btn3subs[i].setBounds(0, 125 + (i*75), 135, 75);
             btn3subs[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
             btn3subs[i].setVisible(false);
+            btn3subs[i].addHActionListener(this);
         }
         for (int i = 0; i < btn4subs.length; i++)
         {
@@ -118,26 +137,41 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             btn4subs[i].setBounds(0, 125 + (i*75), 135, 75);
             btn4subs[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
             btn4subs[i].setVisible(false);
+            btn4subs[i].addHActionListener(this);
         }
         
         allSubs = new MijnKnop[][]{btn1subs, btn2subs, btn3subs, btn4subs};
         
         
         // Content
-        MijnKnop panelContent = new MijnKnop("Content", new Color(200, 200, 200, 200));
+        MijnKnop panelContent = new MijnKnop("", new Color(100, 130, 200, 200));
         panelContent.setBounds(180, 125, 540, 300);
         panelContent.setBackgroundMode(HVisible.BACKGROUND_FILL);
         
+        MijnKnop txt11 = new MijnKnop("U kan de roomservice bereiken met het nr 6969", new Color(255, 255, 255, 255));
+        txt11.setBounds(190, 135, 520, 280);
+        txt11.setBordersEnabled(false);
+        txt11.setVisible(false);
+        
+        MijnKnop txt21 = new MijnKnop("OpeningsUren: 9u - 19u", Color.BLACK);
+        
+        for (int i = 0; i < lblContent12.length; i++)
+        {
+            lblContent12[i] = new MijnKnop(txtContent12[i], new Color(200, 200, 200, 200));
+            lblContent12[i].setBounds(190, 140 + 65*i, 520, 65);
+            lblContent12[i].setVisible(false);
+            lblContent12[i].setBordersEnabled(false);
+        }
+        
         // Button Traversals
         btn1.setFocusTraversal(null, btn1subs[0], null, btn2);
-        btn2.setFocusTraversal(null, btn1subs[0], btn1, btn3);
-        btn3.setFocusTraversal(null, btn1subs[0], btn2, btn4);
-        btn4.setFocusTraversal(null, btn1subs[0], btn3, null);
+        btn2.setFocusTraversal(null, btn2subs[0], btn1, btn3);
+        btn3.setFocusTraversal(null, btn3subs[0], btn2, btn4);
+        btn4.setFocusTraversal(null, btn4subs[0], btn3, null);
         
         btn1subs[0].setFocusTraversal(btn1, btn1subs[1], null, null);
         btn1subs[1].setFocusTraversal(btn1subs[0], btn1subs[2], null, null);
-        btn1subs[2].setFocusTraversal(btn1subs[1], btn1subs[3], null, null);
-        btn1subs[3].setFocusTraversal(btn1subs[2], null, null, null);
+        btn1subs[2].setFocusTraversal(btn1subs[1], null, null, null);
         
         btn2subs[0].setFocusTraversal(btn2, btn2subs[1], null, null);
         btn2subs[1].setFocusTraversal(btn2subs[0], btn2subs[2], null, null);
@@ -172,6 +206,11 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         {
             scene.add(btn4subs[i]);
         }
+        for (int i = 0; i < lblContent12.length; i++)
+        {
+            scene.add(lblContent12[i]);
+        }
+        scene.add(txt11); // Z index hoger
         scene.add(panelContent);
         
         scene.validate();
