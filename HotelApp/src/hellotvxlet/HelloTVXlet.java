@@ -80,27 +80,27 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
     private MijnKnop[][] lblContent2 = {lblContent21, lblContent22, lblContent23};
     
     // ----- Content 3 ----- \\
-    private String[] txtContent31 = {"NOG IN TE VULLEN",
-                                     "NOG iN TE VULLEN"};
+    private String[] txtContent31 = {"Gratis shuttledienst voorzien. Meer info aan de balie",
+                                     "Shuttle rijdt van 9u - 19u"};
     private MijnKnop[] lblContent31 = new MijnKnop[txtContent31.length];
-    private String[] txtContent32 = {"NOG IN TE VULLEN",
-                                     "NOG IN TE VULLEN"};
+    private String[] txtContent32 = {"Gratis shuttledienst voorzien. Meer info aan de balie",
+                                     "Shuttle rijdt van 12u - 20u"};
     private MijnKnop[] lblContent32 = new MijnKnop[txtContent32.length];
-    private String[] txtContent33 = {"NOG IN TE VULLEN",
-                                     "NOG IN TE VULLEN"};
+    private String[] txtContent33 = {"Gratis shuttledienst voorzien. Meer info aan de balie",
+                                     "Shuttle rijdt van 11u - 18u"};
     private MijnKnop[] lblContent33 = new MijnKnop[txtContent33.length];
     private String[][] txtContent3 = {txtContent31, txtContent32, txtContent33};
     private MijnKnop[][] lblContent3 = {lblContent31, lblContent32, lblContent33};
     
     // ----- Content 4 ----- \\
-    private String[] txtContent41 = {"NOG IN TE VULLEN",
-                                     "NOG IN TE VULLEN"};
+    private String[] txtContent41 = {"Begint elke avond om 20.00 uur.",
+                                     ""};
     private MijnKnop[] lblContent41 = new MijnKnop[txtContent41.length];
-    private String[] txtContent42 = {"NOG IN TE VULLEN",
-                                     "NOG IN TE VULLEN"};
+    private String[] txtContent42 = {"Begint elke middag om 14.00 uur.",
+                                     ""};
     private MijnKnop[] lblContent42 = new MijnKnop[txtContent42.length];
-    private String[] txtContent43 = {"NOG IN TE VULLEN",
-                                     "NOG IN TE VULLEN"};
+    private String[] txtContent43 = {"Begint elke morgend om 9.00 uur.",
+                                     ""};
     private MijnKnop[] lblContent43 = new MijnKnop[txtContent43.length];
     private String[][] txtContent4 = {txtContent41, txtContent42, txtContent43};
     private MijnKnop[][] lblContent4 = {lblContent41, lblContent42, lblContent43};
